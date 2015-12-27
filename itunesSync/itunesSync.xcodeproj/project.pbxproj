@@ -1,0 +1,298 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		626655541C2F4286004B3725 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 626655531C2F4286004B3725 /* main.cpp */; };
+		626655621C2F42A6004B3725 /* ezxml.c in Sources */ = {isa = PBXBuildFile; fileRef = 6266555A1C2F42A6004B3725 /* ezxml.c */; };
+		626655631C2F42A6004B3725 /* ItunesParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6266555C1C2F42A6004B3725 /* ItunesParser.cpp */; };
+		626655641C2F42A6004B3725 /* ItunesPlaylist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6266555E1C2F42A6004B3725 /* ItunesPlaylist.cpp */; };
+		626655651C2F42A6004B3725 /* ItunesTrack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 626655601C2F42A6004B3725 /* ItunesTrack.cpp */; };
+		6266556B1C2F4F98004B3725 /* FileMng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 626655691C2F4F98004B3725 /* FileMng.cpp */; };
+		6266556E1C2F5F1E004B3725 /* Platform.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6266556C1C2F5F1E004B3725 /* Platform.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6266554E1C2F4286004B3725 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		626655501C2F4286004B3725 /* itunesSync */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = itunesSync; sourceTree = BUILT_PRODUCTS_DIR; };
+		626655531C2F4286004B3725 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6266555A1C2F42A6004B3725 /* ezxml.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ezxml.c; sourceTree = "<group>"; };
+		6266555B1C2F42A6004B3725 /* ezxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ezxml.h; sourceTree = "<group>"; };
+		6266555C1C2F42A6004B3725 /* ItunesParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ItunesParser.cpp; sourceTree = "<group>"; };
+		6266555D1C2F42A6004B3725 /* ItunesParser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ItunesParser.hpp; sourceTree = "<group>"; };
+		6266555E1C2F42A6004B3725 /* ItunesPlaylist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ItunesPlaylist.cpp; sourceTree = "<group>"; };
+		6266555F1C2F42A6004B3725 /* ItunesPlaylist.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ItunesPlaylist.hpp; sourceTree = "<group>"; };
+		626655601C2F42A6004B3725 /* ItunesTrack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ItunesTrack.cpp; sourceTree = "<group>"; };
+		626655611C2F42A6004B3725 /* itunesTrack.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = itunesTrack.hpp; sourceTree = "<group>"; };
+		626655661C2F438B004B3725 /* macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = macros.h; sourceTree = "<group>"; };
+		626655691C2F4F98004B3725 /* FileMng.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileMng.cpp; sourceTree = "<group>"; };
+		6266556A1C2F4F98004B3725 /* FileMng.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FileMng.hpp; sourceTree = "<group>"; };
+		6266556C1C2F5F1E004B3725 /* Platform.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Platform.mm; sourceTree = "<group>"; };
+		6266556D1C2F5F1E004B3725 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6266554D1C2F4286004B3725 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		626655471C2F4286004B3725 = {
+			isa = PBXGroup;
+			children = (
+				626655521C2F4286004B3725 /* itunesSync */,
+				626655511C2F4286004B3725 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		626655511C2F4286004B3725 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				626655501C2F4286004B3725 /* itunesSync */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		626655521C2F4286004B3725 /* itunesSync */ = {
+			isa = PBXGroup;
+			children = (
+				626655681C2F4F61004B3725 /* Itunes */,
+				626655671C2F4F56004B3725 /* xml */,
+				626655531C2F4286004B3725 /* main.cpp */,
+				626655661C2F438B004B3725 /* macros.h */,
+				626655691C2F4F98004B3725 /* FileMng.cpp */,
+				6266556A1C2F4F98004B3725 /* FileMng.hpp */,
+				6266556C1C2F5F1E004B3725 /* Platform.mm */,
+				6266556D1C2F5F1E004B3725 /* Platform.h */,
+			);
+			path = itunesSync;
+			sourceTree = "<group>";
+		};
+		626655671C2F4F56004B3725 /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				6266555A1C2F42A6004B3725 /* ezxml.c */,
+				6266555B1C2F42A6004B3725 /* ezxml.h */,
+			);
+			name = xml;
+			sourceTree = "<group>";
+		};
+		626655681C2F4F61004B3725 /* Itunes */ = {
+			isa = PBXGroup;
+			children = (
+				6266555C1C2F42A6004B3725 /* ItunesParser.cpp */,
+				6266555D1C2F42A6004B3725 /* ItunesParser.hpp */,
+				6266555E1C2F42A6004B3725 /* ItunesPlaylist.cpp */,
+				6266555F1C2F42A6004B3725 /* ItunesPlaylist.hpp */,
+				626655601C2F42A6004B3725 /* ItunesTrack.cpp */,
+				626655611C2F42A6004B3725 /* itunesTrack.hpp */,
+			);
+			name = Itunes;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6266554F1C2F4286004B3725 /* itunesSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 626655571C2F4286004B3725 /* Build configuration list for PBXNativeTarget "itunesSync" */;
+			buildPhases = (
+				6266554C1C2F4286004B3725 /* Sources */,
+				6266554D1C2F4286004B3725 /* Frameworks */,
+				6266554E1C2F4286004B3725 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = itunesSync;
+			productName = itunesSync;
+			productReference = 626655501C2F4286004B3725 /* itunesSync */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		626655481C2F4286004B3725 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Roman;
+				TargetAttributes = {
+					6266554F1C2F4286004B3725 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 6266554B1C2F4286004B3725 /* Build configuration list for PBXProject "itunesSync" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 626655471C2F4286004B3725;
+			productRefGroup = 626655511C2F4286004B3725 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6266554F1C2F4286004B3725 /* itunesSync */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6266554C1C2F4286004B3725 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6266556E1C2F5F1E004B3725 /* Platform.mm in Sources */,
+				6266556B1C2F4F98004B3725 /* FileMng.cpp in Sources */,
+				626655651C2F42A6004B3725 /* ItunesTrack.cpp in Sources */,
+				626655621C2F42A6004B3725 /* ezxml.c in Sources */,
+				626655641C2F42A6004B3725 /* ItunesPlaylist.cpp in Sources */,
+				626655541C2F4286004B3725 /* main.cpp in Sources */,
+				626655631C2F42A6004B3725 /* ItunesParser.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		626655551C2F4286004B3725 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		626655561C2F4286004B3725 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		626655581C2F4286004B3725 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		626655591C2F4286004B3725 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6266554B1C2F4286004B3725 /* Build configuration list for PBXProject "itunesSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626655551C2F4286004B3725 /* Debug */,
+				626655561C2F4286004B3725 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		626655571C2F4286004B3725 /* Build configuration list for PBXNativeTarget "itunesSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				626655581C2F4286004B3725 /* Debug */,
+				626655591C2F4286004B3725 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 626655481C2F4286004B3725 /* Project object */;
+}
