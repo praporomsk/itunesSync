@@ -8,6 +8,7 @@
 
 #include "FileMng.hpp"
 #include "Platform.h"
+#include <iostream>
 
 bool FileMng::init(ItunesParser* p)
 {
@@ -96,12 +97,13 @@ void FileMng::sync()
     std::for_each(_tracks.begin(), _tracks.end(), [this,files](ItunesTrack* track){
         if(!track->getHave()){
             saveTrack(track);
-        
-            printf("\r copy %d / %.0f progress %.1f%%", (int)files - _fileToCopyCount, files, ((files - (float)_fileToCopyCount)/files) * 100.0f);
             --_fileToCopyCount;
-           
+
+            std::cout << "\r" << "copy " << ((int)files - _fileToCopyCount) << " / " << files
+            << " progress:" << ((files - (float)_fileToCopyCount)/files) * 100.0f << "%"
+            << std::flush;
+
         }
     });
-    printf("\r copy %d / %.0f progress %.1f%%", (int)files - _fileToCopyCount, files, ((files - (float)_fileToCopyCount)/files) * 100.0f);
     printf("\n files synced\n");
 }
