@@ -22,22 +22,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "itunesSync/itunesTrack.hpp"
-            timestampString = "474036498.631294"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "operator&lt;(const ItunesTrack&amp; a)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -74,13 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itunesSync/itunesTrack.hpp"
-            timestampString = "474038192.659158"
+            timestampString = "474044506.740307"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "operator() (const ItunesTrack &amp; left, const ItunesTrack &amp; right)"
-            landmarkType = "5">
+            startingLineNumber = "45"
+            endingLineNumber = "45">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,13 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itunesSync/itunesTrack.hpp"
-            timestampString = "474038209.020178"
+            timestampString = "474044506.740307"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "operator&lt;(ItunesTrack* a)"
-            landmarkType = "5">
+            startingLineNumber = "39"
+            endingLineNumber = "39">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

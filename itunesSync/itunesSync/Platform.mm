@@ -50,6 +50,38 @@ void scanPath(std::vector<std::string>& files, const std::string& path)
     }
 }
 
+void deleteEmptyFolders(const std::string& path)
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSString *documentsDirectory = [NSString stringWithUTF8String:path.c_str()];
+    
+    BOOL isDir = NO;
+    
+    [[NSFileManager defaultManager] fileExistsAtPath:documentsDirectory
+                                         isDirectory:&isDir];
+    if (!isDir)
+        return;
+    
+    NSArray *files = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:nil];
+    for (NSString *file in files) {
+        if([file hasPrefix:@"."])//ignore hidden files
+            continue;
+        
+        NSString *fullPath = [documentsDirectory stringByAppendingPathComponent:file];
+        deleteEmptyFolders([fullPath UTF8String]);
+    
+        NSError *error;
+        NSInteger count = [[fileManager contentsOfDirectoryAtPath:fullPath error:&error] count];
+        if (count==0) {
+            // check if number of files == 0 ==> empty directory
+            if (!error) {
+                // check if error set (fullPath is not a directory and we should leave it alone)
+                [fileManager removeItemAtPath:fullPath error:nil];
+            }
+        }
+    }
+}
+
 void copyFile(const std::string& sorce, const std::string& sdFolder)
 {
 //    NSString* sorceStr = [NSString stringWithUTF8String:sorce.c_str()];

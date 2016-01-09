@@ -17,7 +17,7 @@ int main(int argc, const char * argv[]) {
     std::string itunesDBPath;
     std::string sdFolderPath;
     std::string plKey;
-    
+    //добавить / в путь к флешке
     if (FOR_DEBUG) {
         itunesDBPath = "/Users/romansemenov/Music/iTunes/iTunes\ Music\ Library.xml";
         sdFolderPath = "/Volumes/FIIO/";

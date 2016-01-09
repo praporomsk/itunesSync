@@ -120,8 +120,11 @@ void ItunesParser::parseTracks(ezxml_t data)
     for (ezxml_t key = ezxml_child(data, "key"); key != NULL; key=key->next) {
         ezxml_t value = key->ordered;
         ItunesTrack* track = new ItunesTrack();
-        track->init(value);
-        tracks.push_back(track);
+        if (track->init(value)) {
+            tracks.push_back(track);
+        }else{
+            delete track;
+        }
     }
 
     std::sort(tracks.begin(), tracks.end(), cmp);

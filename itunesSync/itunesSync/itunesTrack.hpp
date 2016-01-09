@@ -24,11 +24,15 @@ public:
     CC_SYNTHESIZE(int, _trackID, TrackID);
     CC_SYNTHESIZE(size_t, _size, Size);
     CC_SYNTHESIZE(std::string, _location, Location);
+    CC_SYNTHESIZE(std::string, _artist, Artist);
+    CC_SYNTHESIZE(std::string, _album, Album);
+    CC_SYNTHESIZE(int, _trackNumber, TrackNumber);
+    CC_SYNTHESIZE(std::string, _name, Name);
     
-    bool operator<(const ItunesTrack& a) const
-    {
-        return _trackID < a._trackID;
-    }
+    CC_SYNTHESIZE(std::string, _genPath, GenPath);
+ 
+private:
+    bool generatePath();
 };
 
 typedef std::vector<ItunesTrack*> ItunesTracks;

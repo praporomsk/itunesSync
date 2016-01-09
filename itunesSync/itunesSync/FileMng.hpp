@@ -24,7 +24,8 @@ public:
     void scan();
     void sync();
 private:
-    void saveFile(const std::string& file);
+    void saveTrack(ItunesTrack* t);
+    
     ItunesParser* parser;
     
     Files _filesToDelete;
