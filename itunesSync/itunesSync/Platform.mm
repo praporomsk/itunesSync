@@ -25,7 +25,7 @@ void createFolders(const std::string& urlStr)
                    attributes:nil
                         error:&error];
     if (!success) {
-        NSLog(@"Create Folders failed with error: %@", error);
+        NSLog(@"\n Create Folders failed with error: %@", error.localizedDescription);
     }
 }
 
@@ -84,7 +84,7 @@ void deleteEmptyFolders(const std::string& path)
                 NSError* error;
                 BOOL success = [fileManager removeItemAtPath:fullPath error:&error];
                 if (!success) {
-                    NSLog(@"Delete Empty Folder failed with error: %@", error);
+                    NSLog(@"\n Delete Empty Folder failed with error: %@", error.localizedDescription);
                 }
             }
         }
@@ -96,6 +96,6 @@ void copyFile(const std::string& sorce, const std::string& sdFolder)
     NSError* error;
     BOOL success = [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:&error];
     if (!success) {
-        NSLog(@"Write failed with error: %@", error);
+        NSLog(@"\n Write failed with error: %@", error.localizedDescription);
     }
 }

@@ -31,7 +31,6 @@ void FileMng::saveTrack(ItunesTrack* t)
 
 void FileMng::scan()
 {
-    printf("FileMng::scan() \n");
     ItunesPlaylists playlists;
     parser->getPlaylists(playlists, _plKey.c_str());
     std::for_each(playlists.begin(), playlists.end(), [this] (ItunesPlaylist* p) {
@@ -44,14 +43,12 @@ void FileMng::scan()
         });
     });
     
-   printf("1FileMng::scan() \n");
     std::vector<std::string> flashFiles;
     std::string folder(_SDFolder.substr(0,_SDFolder.length()-1));
 
     scanPath(flashFiles,folder);
     _filesToDelete.clear();
-    printf("flashFiles size =%lu\n",flashFiles.size());
-    
+
     for (Files::iterator it = flashFiles.begin(); it != flashFiles.end(); ++it) {
         const std::string flFile = *it;
         
@@ -67,7 +64,7 @@ void FileMng::scan()
             _filesToDelete.push_back(*it);
         }
     }
-    printf("100\n");
+
     _fileToCopyCount = 0;
     size_t size = 0;
     for (std::set<ItunesTrack*>::iterator it = _tracks.begin(); it != _tracks.end(); ++it) {
