@@ -32,67 +32,66 @@ void FileMng::saveFile(const std::string& file)
     pos = destPath.find_last_of("/");
     
     createFolders(destPath.substr(0, pos));
-
-    FILE* source = fopen(path.c_str(), "rb");
-    FILE* dest = fopen(destPath.c_str(), "rb+");
-
-    if(dest == NULL) //if file does not exist, create it
-    {
-        dest = fopen(destPath.c_str(), "wb");
-    }
-    
-    while ((size = fread(buf, 1, BUFSIZ, source))) {
-        fwrite(buf, 1, size, dest);
-    }
-    
-    fclose(source);
-    fclose(dest);
-}
-
+    copyFile(path, destPath);
+//    FILE* source = fopen(path.c_str(), "rb");
+//    FILE* dest = fopen(destPath.c_str(), "rb+");
 //
-//ItunesTrack* ItunesParser::getTrack(int trackId)
-//{
-//    ItunesTracks::iterator it = std::lower_bound(tracks.begin(), tracks.end(), trackId, cmpFunc);
-//    if (it != tracks.end() && !(trackId < (*it)->getTrackID()))
-//        return *it; // found
+//    if(dest == NULL) //if file does not exist, create it
+//    {
+//        dest = fopen(destPath.c_str(), "wb");
+//    }
 //    
-//    return NULL;
-//}
-
+//    while ((size = fread(buf, 1, BUFSIZ, source))) {
+//        fwrite(buf, 1, size, dest);
+//    }
+//    
+//    fclose(source);
+//    fclose(dest);
+}
 
 void FileMng::scan()
 {
+    printf("FileMng::scan() \n");
     ItunesPlaylists playlists;
     parser->getPlaylists(playlists, _plKey.c_str());
     std::for_each(playlists.begin(), playlists.end(), [this] (ItunesPlaylist* p) {
         std::for_each(p->getTracks().begin(), p->getTracks().end(), [this] (int id) {
-            _tracks.insert(parser->getTrack(id));
+            ItunesTrack* track = parser->getTrack(id);
+            if (track) {
+                _tracks.insert(track);
+            }
+            
         });
     });
     
-   
+   printf("1FileMng::scan() \n");
     std::vector<std::string> flashFiles;
     scanPath(flashFiles,_SDFolder);
     _filesToDelete.clear();
+    printf("flashFiles size =%lu\n",flashFiles.size());
+    
     for (Files::iterator it = flashFiles.begin(); it != flashFiles.end(); ++it) {
-        auto iter = std::find_if(_tracks.begin(), _tracks.end(), [this,it](ItunesTrack* track){
+        const std::string flFile = *it;
+        
+        auto iter = std::find_if(_tracks.begin(), _tracks.end(), [this,flFile](ItunesTrack* track){
             std::string path(track->getLocation());
             urlToPath(path);
             size_t pos = path.find(itFolder);
             path = path.substr(pos + itFolder.length());
-            std::string filePath ((*it).substr(_SDFolder.length()));
-      
+            std::string filePath (flFile.substr(_SDFolder.length()));
             return !filePath.compare(path);
         });
-        
+
         if (iter != _tracks.end()) {
             ItunesTrack* track = *iter;
+            printf("Have File =%s \n",track->getLocation().c_str());
             track->setHave(true);
         }else{
+            //printf("_filesToDelete =%s \n",(*it).c_str());
             _filesToDelete.push_back(*it);
         }
     }
-    
+    printf("100\n");
     _fileToCopyCount = 0;
     size_t size = 0;
     for (std::set<ItunesTrack*>::iterator it = _tracks.begin(); it != _tracks.end(); ++it) {
@@ -119,10 +118,11 @@ void FileMng::sync()
     
     std::for_each(_tracks.begin(), _tracks.end(), [this,files](ItunesTrack* track){
         if(!track->getHave()){
-            
+            //copyFile(track->getLocation(),_SDFolder);
             saveFile(track->getLocation());
             printf("\r copy %d / %.0f progress %.1f%%", (int)files - _fileToCopyCount, files, ((files - (float)_fileToCopyCount)/files) * 100.0f);
             --_fileToCopyCount;
+           
         }
     });
     printf("\r copy %d / %.0f progress %.1f%%", (int)files - _fileToCopyCount, files, ((files - (float)_fileToCopyCount)/files) * 100.0f);

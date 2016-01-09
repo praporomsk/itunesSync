@@ -13,10 +13,11 @@ const ItunesPlaylists& ItunesParser::getPlaylists(ItunesPlaylists& plist,const c
     plist.clear();
     for (ItunesPlaylists::const_iterator it = playlists.begin(); it != playlists.end(); ++it) {
         ItunesPlaylist* playlist = *it;
-        if (!playlist->getName().find(conteinName))
+        size_t found = playlist->getName().find(conteinName);
+        if (found!=std::string::npos)
             plist.push_back(playlist);
     }
-    
+    printf("find playlists %lu \n",plist.size());
     return plist;
 }
 
@@ -37,9 +38,10 @@ bool cmpFunc (ItunesTrack* track,int id) { return (track->getTrackID()< id); }
 ItunesTrack* ItunesParser::getTrack(int trackId)
 {
     ItunesTracks::iterator it = std::lower_bound(tracks.begin(), tracks.end(), trackId, cmpFunc);
-    if (it != tracks.end() && !(trackId < (*it)->getTrackID()))
+    if (it != tracks.end() && (trackId == (*it)->getTrackID()))
         return *it; // found
-
+    printf("Track id:%d not found ", trackId);
+    
     return NULL;
 }
 
@@ -95,6 +97,8 @@ void ItunesParser::parse(unsigned char *data, size_t size)
         
     }
     
+    //printf("Tracks =%lu \n",tracks.size());
+    //printf("Playlists =%lu \n",playlists.size());
     ezxml_free(xmlData);
 }
 

@@ -49,3 +49,35 @@ void scanPath(std::vector<std::string>& files, const std::string& path)
         files.push_back(path);
     }
 }
+
+void copyFile(const std::string& sorce, const std::string& sdFolder)
+{
+//    NSString* sorceStr = [NSString stringWithUTF8String:sorce.c_str()];
+//    NSLog(@"sorceStr =%@",sorceStr);
+//    
+//    NSURL* sUrl = [NSURL URLWithString:sorceStr];
+//    
+//    NSString* srt = @"Itunes/Music/";
+//    
+//    NSRange range = [sorceStr rangeOfString:srt options:NSLiteralSearch];
+//    range.length += range.location;
+//    range.location = 0;
+//    
+//    NSLog(@"location %lu length=%lu",(unsigned long)range.location,(unsigned long)range.length);
+//    
+//    NSString* dest = [NSString stringWithUTF8String:sdFolder.c_str()];
+//    dest = [dest stringByAppendingString:@"/"];
+//    
+//    NSLog(@"dest =%@",dest);
+//    NSLog(@"add =%@",[sorceStr stringByReplacingCharactersInRange:range withString:@""]);
+//    dest = [dest stringByAppendingString:[sorceStr stringByReplacingCharactersInRange:range withString:@""]];
+//    
+//    NSLog(@"2dest =%@",dest);
+//    //[sorceStr
+//     
+//     NSURL* destination = [NSURL URLWithString:dest];
+//    
+//    NSLog(@"url dest =%@",[destination absoluteString ]);
+//    [[NSFileManager defaultManager] copyItemAtURL:sUrl toURL:destination error:nil];
+    [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:nil];
+}
