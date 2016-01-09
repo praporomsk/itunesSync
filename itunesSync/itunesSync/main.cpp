@@ -10,30 +10,53 @@
 #include "ItunesParser.hpp"
 #include "FileMng.hpp"
 
+#define FOR_DEBUG 1
+
 int main(int argc, const char * argv[]) {
 
-    if (argc != 4) {
-        printf("usage: ./itunesSync  /Users/USERNAME/Music/iTunes/iTunes\\ Music\\ Library.xml  /SDCARD_FOLDER_PATH /PLAYLIST_KEY \n itunesSync only copies playlists with the word PLAYLIST_KEY in them \n");
-        exit(0);
+    std::string itunesDBPath;
+    std::string sdFolderPath;
+    std::string plKey;
+    
+    if (FOR_DEBUG) {
+        itunesDBPath = "/Users/romansemenov/Music/iTunes/iTunes\ Music\ Library.xml";
+        sdFolderPath = "/Volumes/FIIO/";
+        plKey = "BOX";
+    }else{
+        
+        if (argc != 4) {
+            printf("usage: ./itunesSync  /Users/USERNAME/Music/iTunes/iTunes\\ Music\\ Library.xml  /SDCARD_FOLDER_PATH /PLAYLIST_KEY \n itunesSync only copies playlists with the word PLAYLIST_KEY in them \n");
+            exit(0);
+        }
+        
+        itunesDBPath = argv[1];
+        sdFolderPath = argv[2];
+        plKey = argv[3];
     }
+
     
     ItunesParser* parser = new ItunesParser();
-    parser->setITunesDatabasePath(argv[1]);
-    parser->parse();
+    parser->setITunesDatabasePath(itunesDBPath);
+    if (!parser->parse())
+        return 0;
+    
     
     FileMng* fileMng = new FileMng();
-    fileMng->setSDFolder(argv[2]);
-    fileMng->setPlKey(argv[3]);
+    fileMng->setSDFolder(sdFolderPath);
+    fileMng->setPlKey(plKey);
     fileMng->init(parser);
     fileMng->scan();
     
-    char str [80];
-    scanf ("%79s",str);
-    if (!std::strcmp(str, "y")) {
+    if (FOR_DEBUG) {
         fileMng->sync();
+    }else{
+        char str [80];
+        scanf ("%79s",str);
+        if (!std::strcmp(str, "y")) {
+            fileMng->sync();
+        }
     }
-    
-    
+
     delete fileMng;
     delete parser;
     return 0;

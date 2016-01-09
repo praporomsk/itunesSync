@@ -7,6 +7,7 @@
 //
 
 #include "ItunesParser.hpp"
+#include "ItunesTrack.hpp"
 
 const ItunesPlaylists& ItunesParser::getPlaylists(ItunesPlaylists& plist,const char* conteinName)
 {
@@ -33,14 +34,17 @@ Iter binary_find(Iter begin, Iter end, T val)
 
 
 
-bool cmpFunc (ItunesTrack* track,int id) { return (track->getTrackID()< id); }
+bool cmpFunc (ItunesTrack* track,int id) {
+    
+    return (track->getTrackID()< id);
+}
 
 ItunesTrack* ItunesParser::getTrack(int trackId)
 {
     ItunesTracks::iterator it = std::lower_bound(tracks.begin(), tracks.end(), trackId, cmpFunc);
-    if (it != tracks.end() && (trackId == (*it)->getTrackID()))
+    if (it != tracks.end() && !(trackId < (*it)->getTrackID()))
         return *it; // found
-    printf("Track id:%d not found ", trackId);
+    printf("Track id:%d not found \n", trackId);
     
     return NULL;
 }
@@ -50,6 +54,10 @@ bool ItunesParser::parse()
     unsigned char * buffer = nullptr;
     size_t size;
     FILE *fp = fopen(iTunesDatabasePath.c_str(), "r");
+    if (!fp) {
+        printf("file not found:%s \n",iTunesDatabasePath.c_str());
+        return false;
+    }
     fseek(fp,0,SEEK_END);
     size = ftell(fp);
     fseek(fp,0,SEEK_SET);
@@ -102,6 +110,10 @@ void ItunesParser::parse(unsigned char *data, size_t size)
     ezxml_free(xmlData);
 }
 
+bool cmp(ItunesTrack* lhs,  ItunesTrack* rhs)
+{
+    return lhs->getTrackID() < rhs->getTrackID();
+}
 
 void ItunesParser::parseTracks(ezxml_t data)
 {
@@ -111,7 +123,8 @@ void ItunesParser::parseTracks(ezxml_t data)
         track->init(value);
         tracks.push_back(track);
     }
-    std::sort(tracks.begin(), tracks.end());
+
+    std::sort(tracks.begin(), tracks.end(), cmp);
 }
 
 void ItunesParser::parsePlaylists(ezxml_t data)
