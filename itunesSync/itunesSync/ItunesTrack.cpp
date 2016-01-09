@@ -29,6 +29,8 @@ bool ItunesTrack::init(ezxml_t data)
             _trackNumber = atoi(value->txt);
         }else if (!std::strcmp(key->txt, "Name")){
             _name = value->txt;
+        }else if (!std::strcmp(key->txt, "Total Time")){
+            _secTime = atoi(value->txt) / 1000;
         }
     }
     

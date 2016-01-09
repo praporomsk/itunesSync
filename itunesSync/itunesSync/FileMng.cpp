@@ -31,7 +31,7 @@ void FileMng::saveTrack(ItunesTrack* t)
 
 void FileMng::scan()
 {
-    ItunesPlaylists playlists;
+    playlists.clear();
     parser->getPlaylists(playlists, _plKey.c_str());
     std::for_each(playlists.begin(), playlists.end(), [this] (ItunesPlaylist* p) {
         std::for_each(p->getTracks().begin(), p->getTracks().end(), [this] (int id) {

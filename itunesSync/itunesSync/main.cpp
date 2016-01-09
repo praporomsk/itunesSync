@@ -10,7 +10,7 @@
 #include "ItunesParser.hpp"
 #include "FileMng.hpp"
 
-#define FOR_DEBUG 0
+#define FOR_DEBUG 1
 
 int main(int argc, const char * argv[]) {
 
