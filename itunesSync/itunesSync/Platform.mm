@@ -17,11 +17,16 @@ void urlToPath(std::string& urlStr)
 
 void createFolders(const std::string& urlStr)
 {
+    NSError* error;
+    
     NSFileManager* fm = [[NSFileManager alloc] init];
-    [fm createDirectoryAtPath:[NSString stringWithUTF8String:urlStr.c_str()]
+    BOOL success = [fm createDirectoryAtPath:[NSString stringWithUTF8String:urlStr.c_str()]
   withIntermediateDirectories:YES
                    attributes:nil
-                        error:nil];
+                        error:&error];
+    if (!success) {
+        NSLog(@"Create Folders failed with error: %@", error);
+    }
 }
 
 void scanPath(std::vector<std::string>& files, const std::string& path)
@@ -76,7 +81,11 @@ void deleteEmptyFolders(const std::string& path)
             // check if number of files == 0 ==> empty directory
             if (!error) {
                 // check if error set (fullPath is not a directory and we should leave it alone)
-                [fileManager removeItemAtPath:fullPath error:nil];
+                NSError* error;
+                BOOL success = [fileManager removeItemAtPath:fullPath error:&error];
+                if (!success) {
+                    NSLog(@"Delete Empty Folder failed with error: %@", error);
+                }
             }
         }
     }
@@ -84,32 +93,9 @@ void deleteEmptyFolders(const std::string& path)
 
 void copyFile(const std::string& sorce, const std::string& sdFolder)
 {
-//    NSString* sorceStr = [NSString stringWithUTF8String:sorce.c_str()];
-//    NSLog(@"sorceStr =%@",sorceStr);
-//    
-//    NSURL* sUrl = [NSURL URLWithString:sorceStr];
-//    
-//    NSString* srt = @"Itunes/Music/";
-//    
-//    NSRange range = [sorceStr rangeOfString:srt options:NSLiteralSearch];
-//    range.length += range.location;
-//    range.location = 0;
-//    
-//    NSLog(@"location %lu length=%lu",(unsigned long)range.location,(unsigned long)range.length);
-//    
-//    NSString* dest = [NSString stringWithUTF8String:sdFolder.c_str()];
-//    dest = [dest stringByAppendingString:@"/"];
-//    
-//    NSLog(@"dest =%@",dest);
-//    NSLog(@"add =%@",[sorceStr stringByReplacingCharactersInRange:range withString:@""]);
-//    dest = [dest stringByAppendingString:[sorceStr stringByReplacingCharactersInRange:range withString:@""]];
-//    
-//    NSLog(@"2dest =%@",dest);
-//    //[sorceStr
-//     
-//     NSURL* destination = [NSURL URLWithString:dest];
-//    
-//    NSLog(@"url dest =%@",[destination absoluteString ]);
-//    [[NSFileManager defaultManager] copyItemAtURL:sUrl toURL:destination error:nil];
-    [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:nil];
+    NSError* error;
+    BOOL success = [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:&error];
+    if (!success) {
+        NSLog(@"Write failed with error: %@", error);
+    }
 }
