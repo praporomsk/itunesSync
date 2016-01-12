@@ -29,7 +29,8 @@ public:
     CC_SYNTHESIZE(int, _trackNumber, TrackNumber);
     CC_SYNTHESIZE(std::string, _name, Name);
     CC_SYNTHESIZE(int, _secTime, SecTime);
-    
+    CC_SYNTHESIZE(bool, _compilation, Compilation);
+
     CC_SYNTHESIZE(std::string, _genPath, GenPath);
  
 private:

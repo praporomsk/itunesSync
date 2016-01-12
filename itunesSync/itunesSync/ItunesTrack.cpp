@@ -31,6 +31,8 @@ bool ItunesTrack::init(ezxml_t data)
             _name = value->txt;
         }else if (!std::strcmp(key->txt, "Total Time")){
             _secTime = atoi(value->txt) / 1000;
+        }else if (!std::strcmp(key->txt, "Compilation")){
+            _compilation = value->name[0] == 't';
         }
     }
     
@@ -39,10 +41,16 @@ bool ItunesTrack::init(ezxml_t data)
 
 bool ItunesTrack::generatePath()
 {
-    if (!_artist.empty()) {
-        _genPath.append(_artist);
+    if (_compilation) {
+        _genPath.append("Сompilation");
         _genPath.append("/");
+    }else{
+        if (!_artist.empty()) {
+            _genPath.append(_artist);
+            _genPath.append("/");
+        }
     }
+
 
     if (!_album.empty()) {
         _genPath.append(_album);
