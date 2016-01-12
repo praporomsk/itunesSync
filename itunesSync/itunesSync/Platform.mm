@@ -43,6 +43,9 @@ void scanPath(std::vector<std::string>& files, const std::string& path)
         for(i=0;i<contentcount;i++)
         {
             NSString *fileName = [contentOfDirectory objectAtIndex:i];
+            if([fileName hasPrefix:@"."])//ignore hidden files
+                continue;
+            
             NSString *path = [sPath stringByAppendingFormat:@"%@%@",@"/",fileName];
             
             if([[NSFileManager defaultManager] isDeletableFileAtPath:path])
