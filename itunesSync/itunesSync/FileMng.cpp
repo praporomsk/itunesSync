@@ -23,9 +23,9 @@ void FileMng::saveTrack(ItunesTrack* t)
     
     std::string destPath(_SDFolder);
     destPath.append(t->getGenPath());
-    
-    size_t pos = destPath.find_last_of("/");
-    createFolders(destPath.substr(0, pos));
+
+    std::string folder = destPath.substr(0, destPath.length() - t->getName().length() - t->getExtention().length() - 4);
+    createFolders(folder);
     copyFile(path, destPath);
 }
 

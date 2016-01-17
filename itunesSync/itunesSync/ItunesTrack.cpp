@@ -71,6 +71,8 @@ bool ItunesTrack::generatePath()
     if (pos ==std::string::npos)
         return false;
     
-    _genPath.append(_location.substr(pos));
+    _extention = _location.substr(pos);
+    
+    _genPath.append(_extention);
     return true;
 }

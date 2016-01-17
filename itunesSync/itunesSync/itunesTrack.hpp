@@ -32,7 +32,7 @@ public:
     CC_SYNTHESIZE(bool, _compilation, Compilation);
 
     CC_SYNTHESIZE(std::string, _genPath, GenPath);
- 
+    CC_SYNTHESIZE(std::string, _extention, Extention);
 private:
     bool generatePath();
 };
