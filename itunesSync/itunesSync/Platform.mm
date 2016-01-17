@@ -94,11 +94,25 @@ void deleteEmptyFolders(const std::string& path)
     }
 }
 
+bool isEqualString(const std::string& a, const std::string& b)
+{
+    NSString* sA = [NSString stringWithUTF8String:a.c_str()];
+    NSString* sB = [NSString stringWithUTF8String:b.c_str()];
+    return [sA compare:sB options:NSDiacriticInsensitiveSearch] == 0;
+    
+}
+
 void copyFile(const std::string& sorce, const std::string& sdFolder)
 {
-    NSError* error;
-    BOOL success = [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:&error];
-    if (!success) {
-        NSLog(@"\n Write failed with error: %@", error.localizedDescription);
-    }
+//    NSError* error;
+//    BOOL success = [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:&error];
+//    if (!success) {
+//        NSLog(@"\n Write failed with error: %@", error.localizedDescription);
+//    }
+    
+    NSString *content = @"Put this in a file please.";
+    NSData *fileContents = [content dataUsingEncoding:NSUTF8StringEncoding];
+    [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithUTF8String:sdFolder.c_str()]
+                                            contents:fileContents
+                                          attributes:nil];
 }

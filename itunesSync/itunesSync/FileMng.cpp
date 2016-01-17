@@ -54,7 +54,7 @@ void FileMng::scan()
         
         auto iter = std::find_if(_tracks.begin(), _tracks.end(), [this,flFile](ItunesTrack* track){
             std::string filePath (flFile.substr(_SDFolder.length()));
-            return !filePath.compare(track->getGenPath());
+            return isEqualString(filePath, track->getGenPath());
         });
 
         if (iter != _tracks.end()) {
