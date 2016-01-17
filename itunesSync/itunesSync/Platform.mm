@@ -94,11 +94,15 @@ void deleteEmptyFolders(const std::string& path)
     }
 }
 
-bool isEqualString(const std::string& a, const std::string& b)
+bool isEqualString(const std::string& a, const std::string& b, bool caseInsensitive)
 {
     NSString* sA = [NSString stringWithUTF8String:a.c_str()];
     NSString* sB = [NSString stringWithUTF8String:b.c_str()];
-    return [sA compare:sB options:NSDiacriticInsensitiveSearch] == 0;
+    NSStringCompareOptions option = NSDiacriticInsensitiveSearch;
+    if (caseInsensitive)
+        option = NSDiacriticInsensitiveSearch | NSCaseInsensitiveSearch;
+    
+    return [sA compare:sB options:option] == 0;
     
 }
 

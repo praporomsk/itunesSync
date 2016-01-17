@@ -54,7 +54,14 @@ void FileMng::scan()
         
         auto iter = std::find_if(_tracks.begin(), _tracks.end(), [this,flFile](ItunesTrack* track){
             std::string filePath (flFile.substr(_SDFolder.length()));
-            return isEqualString(filePath, track->getGenPath());
+            std::string genPath = track->getGenPath();
+            bool isEqualInsensitive = isEqualString(filePath, genPath, true);
+            bool isEqualSensitive = isEqualString(filePath, genPath, false);
+            
+            if (isEqualInsensitive != isEqualSensitive) {
+                printf("names with different case: \n%s\n%s\n",filePath.c_str(),genPath.c_str());
+            }
+            return isEqualInsensitive;
         });
 
         if (iter != _tracks.end()) {
