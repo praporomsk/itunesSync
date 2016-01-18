@@ -109,5 +109,39 @@ void FileMng::sync()
 
         }
     });
+    
+    createPlaylists();
     printf("\n files synced\n");
+}
+
+void FileMng::createPlaylists()
+{
+    std::for_each(playlists.begin(), playlists.end(), [this](ItunesPlaylist* pList) {
+        createPlaylist(pList);
+    });
+}
+
+#include <fstream>
+
+void FileMng::createPlaylist(ItunesPlaylist* pList)
+{
+    static char buff[256];
+    
+    snprintf(buff, 256, "%s/%s.m3u",_SDFolder.c_str(),pList->getName().c_str());
+    
+    std::ofstream file;
+    file.open (buff);
+    file << "#EXTM3U\n";
+    
+    
+    
+    const Tracks& tracks = pList->getTracks();
+    std::for_each(tracks.begin(), tracks.end(), [&] (int id) {
+        ItunesTrack* track = parser->getTrack(id);
+        snprintf(buff, 256, "#EXTINF:%d,%s - %s\n",track->getSecTime(),track->getName().c_str(),track->getAlbum().c_str());
+        file << buff;
+        snprintf(buff, 256, "TF1:%s\n",track->getGenPath().c_str());
+    });
+    
+    file.close();
 }
