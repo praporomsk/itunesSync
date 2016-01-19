@@ -140,7 +140,10 @@ void FileMng::createPlaylist(ItunesPlaylist* pList)
         ItunesTrack* track = parser->getTrack(id);
         snprintf(buff, 256, "#EXTINF:%d,%s - %s\n",track->getSecTime(),track->getName().c_str(),track->getAlbum().c_str());
         file << buff;
-        snprintf(buff, 256, "TF1:%s\n",track->getGenPath().c_str());
+        std::string s = track->getGenPath();
+        std::replace( s.begin(), s.end(), '/', '\\');
+        snprintf(buff, 256, "TF1:\\%s\n",s.c_str());
+        file << buff;
     });
     
     file.close();
