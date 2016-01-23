@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "itunesSync/FileMng.cpp"
-            timestampString = "474724690.337247"
+            timestampString = "475257128.307253"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "FileMng::sync()"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "FileMng::createPlaylist(ItunesPlaylist* pList)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,6 +32,22 @@
             startingLineNumber = "46"
             endingLineNumber = "46"
             landmarkName = "ItunesTrack::generatePath()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "itunesSync/FileMng.cpp"
+            timestampString = "475257128.307253"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "FileMng::sync()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

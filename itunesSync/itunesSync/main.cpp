@@ -10,7 +10,7 @@
 #include "ItunesParser.hpp"
 #include "FileMng.hpp"
 
-#define FOR_DEBUG 1
+#define FOR_DEBUG 0
 
 int main(int argc, const char * argv[]) {
 
@@ -19,9 +19,9 @@ int main(int argc, const char * argv[]) {
     std::string plKey;
 
     if (FOR_DEBUG) {
-        itunesDBPath = "/Users/romansemenov/Music/iTunes/iTunes\ Music\ Library.xml";
+        itunesDBPath = "/Users/roman/Music/iTunes/iTunes\ Music\ Library.xml";
         sdFolderPath = "/Volumes/FIIO";
-        plKey = "BOX";
+        plKey = "Dapper";
     }else{
         
         if (argc != 4) {

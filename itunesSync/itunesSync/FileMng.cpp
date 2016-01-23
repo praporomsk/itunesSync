@@ -9,6 +9,7 @@
 #include "FileMng.hpp"
 #include "Platform.h"
 #include <iostream>
+#include <fstream>
 
 bool FileMng::init(ItunesParser* p)
 {
@@ -121,7 +122,7 @@ void FileMng::createPlaylists()
     });
 }
 
-#include <fstream>
+
 
 void FileMng::createPlaylist(ItunesPlaylist* pList)
 {
