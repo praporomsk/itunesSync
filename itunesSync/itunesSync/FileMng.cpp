@@ -49,7 +49,8 @@ void FileMng::scan()
 
     scanPath(flashFiles,folder);
     _filesToDelete.clear();
-
+    _playlistToDelete.clear();
+    
     for (Files::iterator it = flashFiles.begin(); it != flashFiles.end(); ++it) {
         const std::string flFile = *it;
         
@@ -69,7 +70,12 @@ void FileMng::scan()
             ItunesTrack* track = *iter;
             track->setHave(true);
         }else{
-            _filesToDelete.push_back(*it);
+            size_t size = (*it).size();
+            if ((*it)[size-3] == 'm' && (*it)[size-2] == '3' && (*it)[size-1] == 'u') {
+                 _playlistToDelete.push_back(*it);
+            }else{
+                _filesToDelete.push_back(*it);
+            }
         }
     }
 
@@ -111,12 +117,18 @@ void FileMng::sync()
         }
     });
     
-    createPlaylists();
+    
+    updatePlaylists();
     printf("\n files synced\n");
 }
 
-void FileMng::createPlaylists()
+void FileMng::updatePlaylists()
 {
+    std::for_each(_playlistToDelete.begin(), _playlistToDelete.end(), [](const std::string& path){
+        if(remove(path.c_str()) != 0 )
+            printf("Error deleting file%s \n",path.c_str());
+    });
+    
     std::for_each(playlists.begin(), playlists.end(), [this](ItunesPlaylist* pList) {
         createPlaylist(pList);
     });
@@ -133,8 +145,6 @@ void FileMng::createPlaylist(ItunesPlaylist* pList)
     std::ofstream file;
     file.open (buff);
     file << "#EXTM3U\n";
-    
-    
     
     const Tracks& tracks = pList->getTracks();
     std::for_each(tracks.begin(), tracks.end(), [&] (int id) {

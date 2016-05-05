@@ -23,7 +23,7 @@ public:
     bool init(ItunesParser* p);
     void scan();
     void sync();
-    void createPlaylists();
+    void updatePlaylists();
     void createPlaylist(ItunesPlaylist* pList);
 private:
     void saveTrack(ItunesTrack* t);
@@ -31,6 +31,7 @@ private:
     ItunesParser* parser;
     
     Files _filesToDelete;
+    Files _playlistToDelete;
     std::set<ItunesTrack*> _tracks;
     ItunesPlaylists playlists;
     int _fileToCopyCount;
