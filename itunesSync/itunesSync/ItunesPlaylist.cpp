@@ -8,6 +8,11 @@
 
 #include "ItunesPlaylist.hpp"
 
+ItunesPlaylist::~ItunesPlaylist()
+{
+    
+}
+
 bool ItunesPlaylist::init(ezxml_t data)
 {
     for (ezxml_t key = ezxml_child(data, "key"); key != NULL; key=key->next) {

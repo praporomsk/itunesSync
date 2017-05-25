@@ -34,7 +34,7 @@ public:
     CC_SYNTHESIZE(ItunesTracks, tracks, Tracks);
     CC_SYNTHESIZE(ItunesPlaylists, playlists, Playlists);
     
-    const ItunesPlaylists& getPlaylists(ItunesPlaylists& plist,const char* conteinName);
+    ItunesPlaylists getPlaylists(const char* conteinName);
     ItunesTrack* getTrack(int trackId);
 private:
     void parse(unsigned char *data, size_t size);

@@ -17,7 +17,7 @@ bool FileMng::init(ItunesParser* p)
     return true;
 }
 
-void FileMng::saveTrack(ItunesTrack* t)
+void FileMng::saveTrack(ItunesTrack* t, bool isEmpty)
 {
     std::string path(t->getLocation());
     urlToPath(path);
@@ -25,17 +25,44 @@ void FileMng::saveTrack(ItunesTrack* t)
     std::string destPath(_SDFolder);
     destPath.append(t->getGenPath());
 
-    std::string folder = destPath.substr(0, destPath.length() - t->getName().length() - t->getExtention().length() - 4);
+    const std::string folder = destPath.substr(0, destPath.length() - t->getName().length() - t->getExtention().length() - 4);
     createFolders(folder);
-    copyFile(path, destPath);
+    copyFile(path, destPath, isEmpty);
+}
+
+bool icompare_pred(unsigned char a, unsigned char b)
+{
+    return std::tolower(a) == std::tolower(b);
+}
+
+bool FileMng::icompare(const std::string& a,const std::string& b, bool& flag)
+{
+    if (a.length()!=b.length())
+        return false;
+    
+    auto aIt = a.begin();
+    auto bIt = b.begin();
+    while (aIt != a.end() && bIt != b.end()) {
+        if (std::tolower(*aIt) != std::tolower(*bIt))
+            return false;
+        
+        if (!flag && *aIt != *bIt)
+            flag = true;
+        
+        ++aIt;
+        ++bIt;
+        
+    }
+
+    return true;
 }
 
 void FileMng::scan()
 {
     playlists.clear();
-    parser->getPlaylists(playlists, _plKey.c_str());
-    std::for_each(playlists.begin(), playlists.end(), [this] (ItunesPlaylist* p) {
-        std::for_each(p->getTracks().begin(), p->getTracks().end(), [this] (int id) {
+    playlists = parser->getPlaylists(_plKey.c_str());
+    std::for_each(playlists.begin(), playlists.end(), [&] (ItunesPlaylist* p) {
+        std::for_each(p->getTracks().begin(), p->getTracks().end(), [&] (int id) {
             ItunesTrack* track = parser->getTrack(id);
             if (track) {
                 _tracks.insert(track);
@@ -55,14 +82,14 @@ void FileMng::scan()
         const std::string flFile = *it;
         
         auto iter = std::find_if(_tracks.begin(), _tracks.end(), [this,flFile](ItunesTrack* track){
-            std::string filePath (flFile.substr(_SDFolder.length()));
-            std::string genPath = track->getGenPath();
-            bool isEqualInsensitive = isEqualString(filePath, genPath, true);
-            bool isEqualSensitive = isEqualString(filePath, genPath, false);
-            
-            if (isEqualInsensitive != isEqualSensitive) {
+            const std::string filePath (flFile.substr(_SDFolder.length()));
+            const std::string& genPath = track->getGenPath();
+            bool flag = false;
+            bool isEqualInsensitive = icompare(filePath, genPath, flag);
+            if (flag) {
                 printf("names with different case: \n%s\n%s\n",filePath.c_str(),genPath.c_str());
             }
+
             return isEqualInsensitive;
         });
 
@@ -92,7 +119,7 @@ void FileMng::scan()
     printf("%lu files to delete, %d files[%0.1fmb] will copy, do you want sync y/n?\n",_filesToDelete.size(), _fileToCopyCount, (float)size/1000000.0f);
 }
 
-void FileMng::sync()
+void FileMng::sync(bool isDebug)
 {
     std::for_each(_filesToDelete.begin(), _filesToDelete.end(), [](const std::string& path){
         if(remove(path.c_str()) != 0 )
@@ -105,9 +132,9 @@ void FileMng::sync()
     
     float files = _fileToCopyCount;
     
-    std::for_each(_tracks.begin(), _tracks.end(), [this,files](ItunesTrack* track){
+    std::for_each(_tracks.begin(), _tracks.end(), [&](ItunesTrack* track){
         if(!track->getHave()){
-            saveTrack(track);
+            saveTrack(track, isDebug);
             --_fileToCopyCount;
 
             std::cout << "\r" << "copy " << ((int)files - _fileToCopyCount) << " / " << files
@@ -133,8 +160,6 @@ void FileMng::updatePlaylists()
         createPlaylist(pList);
     });
 }
-
-
 
 void FileMng::createPlaylist(ItunesPlaylist* pList)
 {

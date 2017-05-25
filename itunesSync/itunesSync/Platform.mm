@@ -106,8 +106,18 @@ bool isEqualString(const std::string& a, const std::string& b, bool caseInsensit
     
 }
 
-void copyFile(const std::string& sorce, const std::string& sdFolder)
+void copyFile(const std::string& sorce, const std::string& sdFolder, bool isEmpty)
 {
+    if (isEmpty) {
+        NSString *content = @"Put this in a file please.";
+        NSData *fileContents = [content dataUsingEncoding:NSUTF8StringEncoding];
+        BOOL success = [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithUTF8String:sdFolder.c_str()]
+                                                               contents:fileContents
+                                                             attributes:nil];
+        success ? NSLog(@"success") : NSLog(@"not success");
+        return;
+    }
+    
     NSError* error;
     BOOL success = [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:&error];
     if (!success) {

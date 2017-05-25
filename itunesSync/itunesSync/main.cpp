@@ -10,29 +10,57 @@
 #include "ItunesParser.hpp"
 #include "FileMng.hpp"
 
-#define FOR_DEBUG 0
+#define FOR_DEBUG 1
+
+static const char *helpText =
+"\n"
+"-lib itunes library path (xml file) \n"
+"-o output folder v\n"
+"-key only copies playlists with this key word \n"
+"-d debug flag create empty files\n";
 
 int main(int argc, const char * argv[]) {
-
-    std::string itunesDBPath;
-    std::string sdFolderPath;
-    std::string plKey;
-
-    if (FOR_DEBUG) {
-        itunesDBPath = "/Users/roman/Music/iTunes/iTunes\ Music\ Library.xml";
-        sdFolderPath = "/Volumes/FIIO";
-        plKey = "Dapper";
-    }else{
+#define ABORT(msg) { puts(msg); return 0; }
+    
+    std::string itunesDBPath = "/Users/rsemenov/Dropbox/iTunes\ Music\ Library.xml";
+    std::string sdFolderPath = "/Users/rsemenov/Desktop/cs";
+    std::string plKey = "FIIO";
+    bool isDebug = false;
+    
+    int argPos = 1;
+    bool suggestHelp = false;
+    while (argPos < argc) {
+        const char *arg = argv[argPos];
+#define ARG_CASE(s, p) if (!strcmp(arg, s) && argPos+(p) < argc)
         
-        if (argc != 4) {
-            printf("usage: ./itunesSync  /Users/USERNAME/Music/iTunes/iTunes\\ Music\\ Library.xml  /SDCARD_FOLDER_PATH /PLAYLIST_KEY \n itunesSync only copies playlists with the word PLAYLIST_KEY in them \n");
-            exit(0);
+        ARG_CASE("-lib", 1) {
+            itunesDBPath = argv[argPos+1];
+            argPos += 2;
+            continue;
         }
-        
-        itunesDBPath = argv[1];
-        sdFolderPath = argv[2];
-        plKey = argv[3];
+        ARG_CASE("-o", 1) {
+            sdFolderPath = argv[argPos+1];
+            argPos += 2;
+            continue;
+        }
+        ARG_CASE("-key", 1) {
+            plKey = argv[argPos+1];
+            argPos += 2;
+            continue;
+        }
+        ARG_CASE("-d", 0) {
+            isDebug = true;
+            argPos += 1;
+            continue;
+        }
+        ARG_CASE("-help", 0)
+        ABORT(helpText);
+        printf("Unknown setting or insufficient parameters: %s\n", arg);
+        suggestHelp = true;
+        ++argPos;
     }
+    if (suggestHelp)
+        printf("Use -help for more information.\n");
     
     if (sdFolderPath[sdFolderPath.length()-1] != '/')
         sdFolderPath.append("/");
@@ -51,12 +79,12 @@ int main(int argc, const char * argv[]) {
     fileMng->scan();
     
     if (FOR_DEBUG) {
-        fileMng->sync();
+        fileMng->sync(isDebug);
     }else{
         char str [80];
         scanf ("%79s",str);
         if (!std::strcmp(str, "y")) {
-            fileMng->sync();
+            fileMng->sync(isDebug);
         }
     }
 

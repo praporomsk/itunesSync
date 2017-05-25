@@ -22,11 +22,12 @@ class FileMng
 public:
     bool init(ItunesParser* p);
     void scan();
-    void sync();
+    void sync(bool isDebug);
     void updatePlaylists();
     void createPlaylist(ItunesPlaylist* pList);
 private:
-    void saveTrack(ItunesTrack* t);
+    bool icompare(const std::string& a,const std::string& b, bool& flag);
+    void saveTrack(ItunesTrack* t, bool isEmpty);
     
     ItunesParser* parser;
     

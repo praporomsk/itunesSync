@@ -19,6 +19,7 @@ class ItunesPlaylist
 {
 public:
     bool init(ezxml_t data);
+    ~ItunesPlaylist();
     
     const Tracks& getTracks() {return _tracks;}
     CC_SYNTHESIZE(std::string, _name, Name);
@@ -28,5 +29,8 @@ private:
     Tracks _tracks;
 };
 
-typedef std::vector<ItunesPlaylist*> ItunesPlaylists;
+using ItunesPlaylistPtr = std::unique_ptr<ItunesPlaylist>;
+using ItunesPlaylistsVec = std::vector<ItunesPlaylistPtr>;
+using ItunesPlaylists = std::vector<ItunesPlaylist*>;
+
 #endif /* ItunesPlaylist_hpp */

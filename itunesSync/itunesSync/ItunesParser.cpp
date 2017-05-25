@@ -9,9 +9,9 @@
 #include "ItunesParser.hpp"
 #include "ItunesTrack.hpp"
 
-const ItunesPlaylists& ItunesParser::getPlaylists(ItunesPlaylists& plist,const char* conteinName)
+ItunesPlaylists ItunesParser::getPlaylists(const char* conteinName)
 {
-    plist.clear();
+    ItunesPlaylists plist;
     for (ItunesPlaylists::const_iterator it = playlists.begin(); it != playlists.end(); ++it) {
         ItunesPlaylist* playlist = *it;
         size_t found = playlist->getName().find(conteinName);
@@ -21,18 +21,6 @@ const ItunesPlaylists& ItunesParser::getPlaylists(ItunesPlaylists& plist,const c
     printf("find playlists %lu \n",plist.size());
     return plist;
 }
-
-template<class Iter, class T>
-Iter binary_find(Iter begin, Iter end, T val)
-{
-    Iter i = std::lower_bound(begin, end, val);
-    if (i != end && !(val < *i))
-        return i; // found
-    else
-        return end; // not found
-}
-
-
 
 bool cmpFunc (ItunesTrack* track,int id) {
     
@@ -135,6 +123,7 @@ void ItunesParser::parsePlaylists(ezxml_t data)
     for (ezxml_t dict = ezxml_child(data, "dict"); dict != NULL; dict=dict->next) {
         ezxml_t value = dict->ordered;
         ItunesPlaylist* playlist = new ItunesPlaylist();
+        //std::unique_ptr<ItunesPlaylist> playlist(new ItunesPlaylist);
         playlist->init(value);
         playlists.push_back(playlist);
     }
