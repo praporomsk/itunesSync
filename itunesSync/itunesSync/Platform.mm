@@ -29,37 +29,6 @@ void createFolders(const std::string& urlStr)
     }
 }
 
-void scanPath(std::vector<std::string>& files, const std::string& path)
-{
-    NSString* sPath = [NSString stringWithUTF8String:path.c_str()];
-    
-    BOOL isDir;
-    if(![[NSFileManager defaultManager] fileExistsAtPath:sPath isDirectory:&isDir])
-        return;
-    
-    if (isDir) {
-        NSArray *contentOfDirectory=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:sPath error:NULL];
-        
-        int contentcount = [contentOfDirectory count];
-        int i;
-        for(i=0;i<contentcount;i++)
-        {
-            NSString *fileName = [contentOfDirectory objectAtIndex:i];
-            if([fileName hasPrefix:@"."])//ignore hidden files
-                continue;
-            
-            NSString *path = [sPath stringByAppendingFormat:@"%@%@",@"/",fileName];
-            
-            if([[NSFileManager defaultManager] isDeletableFileAtPath:path])
-            {
-                scanPath(files, [path UTF8String]);
-            }
-        }
-    }else{
-        files.push_back(path);
-    }
-}
-
 void deleteEmptyFolders(const std::string& path)
 {
     NSFileManager *fileManager = [[NSFileManager alloc] init];

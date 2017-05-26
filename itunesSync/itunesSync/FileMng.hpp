@@ -28,6 +28,7 @@ public:
 private:
     bool icompare(const std::string& a,const std::string& b, bool& flag);
     void saveTrack(ItunesTrack* t, bool isEmpty);
+    void getFilesFromPathRecursively(std::vector<std::string>& files, const std::string& path);
     
     ItunesParser* parser;
     

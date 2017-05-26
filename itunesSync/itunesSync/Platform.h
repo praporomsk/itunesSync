@@ -15,7 +15,6 @@
 
 void urlToPath(std::string& urlStr);
 void createFolders(const std::string& urlStr);
-void scanPath(std::vector<std::string>& files, const std::string& path);
 void deleteEmptyFolders(const std::string& path);
 
 #endif /* Platform_hpp */

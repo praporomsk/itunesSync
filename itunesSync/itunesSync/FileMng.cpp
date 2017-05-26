@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include "copyFile.h"
+#include "dirent.h"
 
 bool FileMng::init(ItunesParser* p)
 {
@@ -72,6 +73,33 @@ bool FileMng::icompare(const std::string& a,const std::string& b, bool& flag)
     return true;
 }
 
+
+void FileMng::getFilesFromPathRecursively(std::vector<std::string>& files, const std::string& path)
+{
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir (path.c_str())) != NULL) {
+        while ((ent = readdir (dir)) != NULL) {
+            if (ent->d_name[0] == '.') //ignore hide files
+                continue;
+            
+            static char buff[1024];
+            snprintf(buff, 1024, "%s/%s",path.c_str(),ent->d_name);
+            const std::string& npath(buff);
+            
+            if (ent->d_type == DT_DIR) {
+                getFilesFromPathRecursively(files, npath);
+            }else{
+                files.push_back(npath);
+            }
+        }
+        closedir (dir);
+    } else {
+        printf("could not open directory:%s\n",path.c_str());
+        return;
+    }
+}
+
 void FileMng::scan()
 {
     playlists.clear();
@@ -89,7 +117,7 @@ void FileMng::scan()
     std::vector<std::string> flashFiles;
     std::string folder(_SDFolder.substr(0,_SDFolder.length()-1));
 
-    scanPath(flashFiles,folder);
+    getFilesFromPathRecursively(flashFiles,folder);
     _filesToDelete.clear();
     _playlistToDelete.clear();
     
