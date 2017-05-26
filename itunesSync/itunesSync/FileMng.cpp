@@ -10,6 +10,7 @@
 #include "Platform.h"
 #include <iostream>
 #include <fstream>
+#include "copyFile.h"
 
 bool FileMng::init(ItunesParser* p)
 {
@@ -27,7 +28,21 @@ void FileMng::saveTrack(ItunesTrack* t, bool isEmpty)
 
     const std::string folder = destPath.substr(0, destPath.length() - t->getName().length() - t->getExtention().length() - 4);
     createFolders(folder);
-    copyFile(path, destPath, isEmpty);
+
+    if (isEmpty) {
+        std::ofstream out;
+        out.open(destPath);
+        if (out.bad()) {
+            printf("ERROR");
+        }
+        
+        
+    }else{
+        int error = copyfile(path.c_str(), destPath.c_str(), NULL,  COPYFILE_DATA);
+        if (!error)
+            printf("ERROR copyfile:%s \n",destPath.c_str());
+        
+    }    
 }
 
 bool icompare_pred(unsigned char a, unsigned char b)

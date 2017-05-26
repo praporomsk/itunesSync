@@ -21,11 +21,10 @@ static const char *helpText =
 
 int main(int argc, const char * argv[]) {
 #define ABORT(msg) { puts(msg); return 0; }
-    
     std::string itunesDBPath = "/Users/rsemenov/Dropbox/iTunes\ Music\ Library.xml";
     std::string sdFolderPath = "/Users/rsemenov/Desktop/cs";
     std::string plKey = "FIIO";
-    bool isDebug = false;
+    bool isDebug = true;
     
     int argPos = 1;
     bool suggestHelp = false;

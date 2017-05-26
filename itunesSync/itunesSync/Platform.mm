@@ -34,7 +34,9 @@ void scanPath(std::vector<std::string>& files, const std::string& path)
     NSString* sPath = [NSString stringWithUTF8String:path.c_str()];
     
     BOOL isDir;
-    [[NSFileManager defaultManager] fileExistsAtPath:sPath isDirectory:&isDir];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:sPath isDirectory:&isDir])
+        return;
+    
     if (isDir) {
         NSArray *contentOfDirectory=[[NSFileManager defaultManager] contentsOfDirectoryAtPath:sPath error:NULL];
         
@@ -94,41 +96,5 @@ void deleteEmptyFolders(const std::string& path)
     }
 }
 
-bool isEqualString(const std::string& a, const std::string& b, bool caseInsensitive)
-{
-    NSString* sA = [NSString stringWithUTF8String:a.c_str()];
-    NSString* sB = [NSString stringWithUTF8String:b.c_str()];
-    NSStringCompareOptions option = NSDiacriticInsensitiveSearch;
-    if (caseInsensitive)
-        option = NSDiacriticInsensitiveSearch | NSCaseInsensitiveSearch;
-    
-    return [sA compare:sB options:option] == 0;
-    
-}
 
-void copyFile(const std::string& sorce, const std::string& sdFolder, bool isEmpty)
-{
-    if (isEmpty) {
-        NSString *content = @"Put this in a file please.";
-        NSData *fileContents = [content dataUsingEncoding:NSUTF8StringEncoding];
-        BOOL success = [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithUTF8String:sdFolder.c_str()]
-                                                               contents:fileContents
-                                                             attributes:nil];
-        success ? NSLog(@"success") : NSLog(@"not success");
-        return;
-    }
-    
-    NSError* error;
-    BOOL success = [[NSFileManager defaultManager] copyItemAtPath:[NSString stringWithUTF8String:sorce.c_str()] toPath:[NSString stringWithUTF8String:sdFolder.c_str()] error:&error];
-    if (!success) {
-        NSLog(@"\n Write failed with error: %@", error.localizedDescription);
-    }
-//
-//    NSString *content = @"Put this in a file please.";
-//    NSData *fileContents = [content dataUsingEncoding:NSUTF8StringEncoding];
-//    BOOL success = [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithUTF8String:sdFolder.c_str()]
-//                                            contents:fileContents
-//                                          attributes:nil];
-//    success ? NSLog(@"success") : NSLog(@"not success");
 
-}
